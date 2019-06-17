@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Others">
     <Button
         android:layout_width="wrap_content"
@@ -15,5 +16,34 @@
         android:layout_height="wrap_content"
         android:text="Signout"
         android:onClick="Signout"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="number"
+        android:id="@+id/phoneNumber"
+        android:inputType="text"
+
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send OTP"
+        android:id="@+id/buttonRequestOTP"
+        android:onClick="buttonRequestOTP"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="OTP"
+        android:id="@+id/otp"
+        android:inputType="text"
+
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login via OTP"
+        android:id="@+id/Signin"
+        android:onClick="Signin"/>
+
 
 </LinearLayout>
