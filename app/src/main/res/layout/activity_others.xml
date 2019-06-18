@@ -44,6 +44,15 @@
         android:text="Login via OTP"
         android:id="@+id/Signin"
         android:onClick="Signin"/>
+    <com.facebook.login.widget.LoginButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fbbutton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check current user"
+        android:onClick="cub"/>
 
 
 </LinearLayout>
