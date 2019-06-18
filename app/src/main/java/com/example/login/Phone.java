@@ -26,6 +26,7 @@ public class Phone extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private boolean inProgress = false;
     private String verificationid;
+    private OtpReceiver otpReceiver = new OtpReceiver();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class Phone extends AppCompatActivity {
         setContentView(R.layout.activity_phone);
         mAuth = FirebaseAuth.getInstance();
         phoneNumber = (EditText) findViewById(R.id.pnumber);
+        phoneNumber.setText("+91");
         OTPCode = (EditText) findViewById(R.id.otp);
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -50,6 +52,14 @@ public class Phone extends AppCompatActivity {
             public void onCodeSent(String vid, PhoneAuthProvider .ForceResendingToken token){
                 verificationid = vid;
                 Log.v("AAA", "Code Sent");
+                OtpReceiver.bindListener(new OtpListener() {
+                    @Override
+                    public void messageReceived(String messageText) {
+                        OTPCode.setText(messageText);
+                    }
+                });
+
+
             }
         };
 
@@ -81,6 +91,12 @@ public class Phone extends AppCompatActivity {
     public void verifyNumberWithCode(String otp, String verificationid){
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationid, otp);
         signInWithNumber(credential);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        otpReceiver.unbindListener();
     }
 
     public static int f=0;
