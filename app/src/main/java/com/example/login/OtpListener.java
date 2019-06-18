@@ -1,4 +1,5 @@
 package com.example.login;
 
-public class OtpListener {
+public interface OtpListener {
+    public void messageReceived(String messageText);
 }
