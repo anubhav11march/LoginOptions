@@ -5,54 +5,181 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bggg"
+    android:padding="0dp"
+
     tools:context=".Others">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:textSize="25dp"
+        android:text="SIGN IN"
+        android:textAlignment="center"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:id="@+id/inputEmail"
+        android:hint="Email"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputPassword"
+        android:layout_margin="7dp"
+        android:inputType="textPassword"
+        android:hint="Password"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gsign"
-        android:onClick="googleSignIn"/>
+        android:layout_gravity="right"
+        android:layout_margin="5dp"
+        android:text="Sign in"
+        android:onClick="esi"
+        android:background="@drawable/sbutt"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="or"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:onClick="googleSignIn"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/gbutt">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_margin="15dp"
+            android:layout_height="30dp"
+            android:background="@drawable/gicon"
+            />
+        <TextView
+            android:textColor="#222222"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="20dp"
+            android:text="Continue with Google"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:onClick="fblogin"
+        android:id="@+id/fbbutton"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/fbutt"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_margin="15dp"
+            android:layout_height="30dp"
+            android:background="@drawable/fb"
+            />
+        <TextView
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="20dp"
+            android:text="Continue with Facebook"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:onClick="top"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/pbutt">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_margin="15dp"
+            android:layout_height="30dp"
+            android:background="@drawable/phone"
+            />
+        <TextView
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textSize="20dp"
+            android:text="Continue with Phone"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:textSize="15dp"
+        android:onClick="tosu"
+        android:textColor="#FFFFFF"
+        android:text="New User? Click Here"
+        android:textAlignment="center"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Signout"
         android:onClick="Signout"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="number"
-        android:id="@+id/phoneNumber"
-        android:inputType="text"
 
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send OTP"
-        android:id="@+id/buttonRequestOTP"
-        android:onClick="buttonRequestOTP"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="OTP"
-        android:id="@+id/otp"
-        android:inputType="text"
 
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login via OTP"
-        android:id="@+id/Signin"
-        android:onClick="Signin"/>
-    <com.facebook.login.widget.LoginButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fbbutton"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Check current user"
         android:onClick="cub"/>
+    </LinearLayout>
 
 
 </LinearLayout>
