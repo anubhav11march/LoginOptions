@@ -36,7 +36,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/otp"
         android:layout_margin="7dp"
-        android:inputType="textPassword"
         android:hint="OTP"/>
 
     <Button
