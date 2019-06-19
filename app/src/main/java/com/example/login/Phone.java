@@ -1,11 +1,15 @@
 package com.example.login;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +40,14 @@ public class Phone extends AppCompatActivity {
         phoneNumber = (EditText) findViewById(R.id.pnumber);
         phoneNumber.setText("+91");
         OTPCode = (EditText) findViewById(R.id.otp);
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)!= PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)!= PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(Phone.this, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
+            ActivityCompat.requestPermissions(Phone.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+            ActivityCompat.requestPermissions(Phone.this, new String[]{Manifest.permission.READ_SMS}, 1);
+
+        }
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
@@ -52,16 +64,19 @@ public class Phone extends AppCompatActivity {
             public void onCodeSent(String vid, PhoneAuthProvider .ForceResendingToken token){
                 verificationid = vid;
                 Log.v("AAA", "Code Sent");
-                OtpReceiver.bindListener(new OtpListener() {
-                    @Override
-                    public void messageReceived(String messageText) {
-                        OTPCode.setText(messageText);
-                    }
-                });
+                Toast.makeText(Phone.this, "OTP Sent Successfully", Toast.LENGTH_SHORT).show();
+
 
 
             }
         };
+        OtpReceiver.bindListener(new OtpListener() {
+            @Override
+            public void messageReceived(String messageText) {
+                OTPCode.setText(messageText);
+                Log.v("AAA", "Messagereceived");
+            }
+        });
 
 //        currentUser = mAuth.getCurrentUser();
     }
