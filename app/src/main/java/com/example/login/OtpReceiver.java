@@ -29,18 +29,20 @@ public class OtpReceiver extends BroadcastReceiver {
             for (Object pdu : pdus) { // loop through and pick up the SMS of interest
                 smsMessage = SmsMessage.createFromPdu((byte[]) pdu);
                 Log.v("AAA", smsMessage.getDisplayOriginatingAddress());
-                Log.v("AAA", smsMessage.getOriginatingAddress());
+                Log.v("AAA", smsMessage.getUserData().toString());
                 message = smsMessage.getMessageBody();
+
+
                 for(int i=0; i<6; i++){
                     code+=message.charAt(i);
                 }
             }
 
-                if (mListener!=null)
+                if (mListener!=null) {
                     Log.v("AAA", "" + smsMessage.getDisplayOriginatingAddress().equals("59029410"));
-                        if (smsMessage.getDisplayOriginatingAddress().equals("59029410"))
-                            mListener.messageReceived(code);
-
+                    if (smsMessage.getDisplayOriginatingAddress().equals("59029410"))
+                        mListener.messageReceived(code);
+                }
         }
     }
 
