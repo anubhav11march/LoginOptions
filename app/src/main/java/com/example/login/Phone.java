@@ -90,7 +90,7 @@ public class Phone extends AppCompatActivity {
                 Log.v("AAA", "Messagereceived");
             }
         });
-
+//          smsBroadcast.bindListener();
 //        currentUser = mAuth.getCurrentUser();
 //        smsRetrieverClient = SmsRetriever.getClient(this);
 //        Task<Void> task = smsRetrieverClient.startSmsRetriever();
