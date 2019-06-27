@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         inputEmail = (EditText) findViewById(R.id.inputEmail);
         inputPassword = (EditText) findViewById(R.id.inputPassword);
-        Log.v("AAAkey", printKeyHash(this));
-
+        AppSignatureHelper appSignature =new  AppSignatureHelper(this);
+        appSignature.getAppSignatures();
     }
     public static String printKeyHash(Activity context) {
         PackageInfo packageInfo;

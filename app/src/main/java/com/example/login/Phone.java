@@ -1,6 +1,7 @@
 package com.example.login;
 
 import android.Manifest;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -11,8 +12,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -50,6 +54,35 @@ public class Phone extends AppCompatActivity {
             ActivityCompat.requestPermissions(Phone.this, new String[]{Manifest.permission.READ_SMS}, 1);
 
         }
+
+        SmsRetrieverClient client = SmsRetriever.getClient(this);
+        Task<Void> task = client.startSmsRetriever();
+        smsBroadcast.bindListener(new OtpListener() {
+            @Override
+            public void messageReceived(String messageText) {
+                OTPCode.setText(messageText);
+                Log.v("AAA", "Messagereceived");
+            }
+        });
+        task.addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.v("AAAA", "Started SRA");
+            }
+        });
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.v("AAAA", "Couldn't start SRA");
+            }
+        });
+        IntentFilter intentFilter = new IntentFilter();
+
+        intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION);
+
+        getApplicationContext().registerReceiver(new smsBroadcast(), intentFilter);
+
+
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
@@ -72,14 +105,7 @@ public class Phone extends AppCompatActivity {
 
             }
         };
-        OtpReceiver.bindListener(new OtpListener() {
-            @Override
-            public void messageReceived(String messageText) {
-                OTPCode.setText(messageText);
-                Log.v("AAA", "Messagereceived");
-            }
-        });
-//          smsBroadcast.bindListener();
+
 //        currentUser = mAuth.getCurrentUser();
 //        smsRetrieverClient = SmsRetriever.getClient(this);
 //        Task<Void> task = smsRetrieverClient.startSmsRetriever();
