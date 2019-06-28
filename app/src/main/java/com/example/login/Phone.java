@@ -37,6 +37,8 @@ public class Phone extends AppCompatActivity {
     private OtpReceiver otpReceiver = new OtpReceiver();
     private int RESOLVE_HINT = 2;
     SmsRetrieverClient smsRetrieverClient;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +48,7 @@ public class Phone extends AppCompatActivity {
         phoneNumber = (EditText) findViewById(R.id.pnumber);
         phoneNumber.setText("+91");
         OTPCode = (EditText) findViewById(R.id.otp);
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)!= PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)!= PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS)!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(Phone.this, new String[]{Manifest.permission.RECEIVE_SMS}, 1);
-            ActivityCompat.requestPermissions(Phone.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
-            ActivityCompat.requestPermissions(Phone.this, new String[]{Manifest.permission.READ_SMS}, 1);
 
-        }
 
         SmsRetrieverClient client = SmsRetriever.getClient(this);
         Task<Void> task = client.startSmsRetriever();
@@ -61,25 +56,25 @@ public class Phone extends AppCompatActivity {
             @Override
             public void messageReceived(String messageText) {
                 OTPCode.setText(messageText);
-                Log.v("AAA", "Messagereceived");
+                Log.v("AAA", "Message Received.");
             }
         });
         task.addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.v("AAAA", "Started SRA");
+                Log.v("AAAA", "Started Sms Retriever ");
             }
         });
         task.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.v("AAAA", "Couldn't start SRA");
+                Log.v("AAAA", "Couldn't start Sms Retriever");
             }
         });
+
+
         IntentFilter intentFilter = new IntentFilter();
-
         intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION);
-
         getApplicationContext().registerReceiver(new smsBroadcast(), intentFilter);
 
 
@@ -87,45 +82,21 @@ public class Phone extends AppCompatActivity {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
                 inProgress = false;
-
             }
-
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 inProgress = false;
             }
-
             @Override
             public void onCodeSent(String vid, PhoneAuthProvider .ForceResendingToken token){
                 verificationid = vid;
                 Log.v("AAA", "Code Sent");
                 Toast.makeText(Phone.this, "OTP Sent Successfully", Toast.LENGTH_SHORT).show();
-
-
-
             }
         };
 
-//        currentUser = mAuth.getCurrentUser();
-//        smsRetrieverClient = SmsRetriever.getClient(this);
-//        Task<Void> task = smsRetrieverClient.startSmsRetriever();
-//        task.addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void aVoid) {
-////                OTPCode.setText(ssss);
-//                Log.v("AAA", "Onsuccess");
-//            }
-//        });
-//        task.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//
-//            }
-//        });
+
     }
-
-
-
 
 
     public void buttonRequestOTP(View view){
@@ -151,6 +122,8 @@ public class Phone extends AppCompatActivity {
         );
         inProgress = true;
     }
+
+
     public void verifyNumberWithCode(String otp, String verificationid){
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationid, otp);
         signInWithNumber(credential);
@@ -162,6 +135,7 @@ public class Phone extends AppCompatActivity {
         otpReceiver.unbindListener();
     }
 
+
     public static int f=0;
     public void signInWithNumber(PhoneAuthCredential credential){
         mAuth.signInWithCredential(credential)
@@ -170,9 +144,12 @@ public class Phone extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Log.v("AAA", "Sign in Success");
+                            Toast.makeText(Phone.this, "Signed in Successfully", Toast.LENGTH_SHORT).show();
                         }
-                        else
+                        else {
                             Log.v("AAA", "Sign in Failed");
+                            Toast.makeText(Phone.this, "Sign in Failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }

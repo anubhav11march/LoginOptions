@@ -19,6 +19,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -59,6 +60,8 @@ public class Others extends AppCompatActivity {
         setContentView(R.layout.activity_others);
         emaill = (EditText) findViewById(R.id.inputEmail);
         passwordd = (EditText) findViewById(R.id.inputPassword);
+
+
         //GOOGLE SIGN IN
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("873606793313-qifc7g3te34ji7atnjl28vpmab0gr3d9.apps.googleusercontent.com")
@@ -95,35 +98,13 @@ public class Others extends AppCompatActivity {
         );
 
 
-//        LoginButton loginButton = findViewById(R.id.fbbutton);
-//        loginButton.setReadPermissions("email", "public_profile", "user_friends");
-//        loginButton.registerCallback(mCallbakckManagaer, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                Log.v("AAA", "FB Logged in " + loginResult);
-//                handleFacebookAccessToken(loginResult.getAccessToken());
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                Log.v("AAA", "Sign in cancelled FB");
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//                Log.v("AAA","FB Login Error");
-//            }
-//        });
 
         //OTP Login
-
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
                 inProgress = false;
-
             }
-
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 inProgress = false;
@@ -139,7 +120,7 @@ public class Others extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
     }
 
-    public void esi(View view){
+    public void emailSignIn(View view){
         final String email = emaill.getText().toString();
         String pass = passwordd.getText().toString();
         mAuth.signInWithEmailAndPassword(email, pass)
@@ -157,9 +138,11 @@ public class Others extends AppCompatActivity {
                 });
     }
 
-    public void tosu(View view){
+
+    public void toSignUp(View view){
         startActivity(new Intent(Others.this, MainActivity.class));
     }
+
 
     public void fblogin(View v) {
 
@@ -167,14 +150,15 @@ public class Others extends AppCompatActivity {
                     this,
                     Arrays.asList("email", "public_profile")
             );
-
     }
+
 
     public void buttonRequestOTP(View view){
         Log.v("AAA", "requestOTP");
         String number = phoneNumber.getText().toString();
         verifyNumber(number);
     }
+
 
     public void Signin(View view){
         String otp = OTPCode.getText().toString();
@@ -222,13 +206,11 @@ public class Others extends AppCompatActivity {
     }
 
 
-
     public void googleSignIn(View view){
-
         Intent signin = mgooglesigninclient.getSignInIntent();
         startActivityForResult(signin, 9001);
-
     }
+
 
     public void Signout(View view){
         if(mAuth.getCurrentUser() == null)
@@ -237,7 +219,6 @@ public class Others extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         currentUser = null;
     }
-
 
 
     @Override
@@ -262,9 +243,11 @@ public class Others extends AppCompatActivity {
             }
     }
 
+
     public void top(View view){
         startActivity(new Intent(Others.this, Phone.class));
     }
+
 
     public void handleFacebookAccessToken(AccessToken token){
         Log.v("AAA", "FB Access Token");
@@ -276,14 +259,14 @@ public class Others extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Log.v("AAA", "Log in Success through FB");
-
                         }
                         else {
-                           Log.v("AAA", "Log in through fb failed");
+                           Log.v("AAA", "Log in through FB failed");
                         }
                     }
                 });
     }
+
 
     public  void firebaseAuthwithGoogle(GoogleSignInAccount account){
         Log.v("AAA", "firebaseauthwithgoogle " + account.getId());
@@ -301,7 +284,8 @@ public class Others extends AppCompatActivity {
                 });
     }
 
-    public void cub(View view){
+
+    public void checkCurrentUser(View view){
         if(mAuth.getCurrentUser()!=null)
         Toast.makeText(this, "Signed in as: " + mAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
         else
