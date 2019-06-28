@@ -13,14 +13,16 @@ import com.google.android.gms.common.api.Status;
 public class smsBroadcast extends BroadcastReceiver {
     private static OtpListener mlistener = null;
     private String otp = "";
+
     public static void bindListener(OtpListener listener) {
         Log.v("AAA", "Binded Listener");
         mlistener= listener;
     }
 
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.v("AAA", "onReceive");
+        Log.v("AAA", "onReceive called");
         if(SmsRetriever.SMS_RETRIEVED_ACTION.equals(intent.getAction())){
             Bundle extras = intent.getExtras();
             Status status = (Status) extras.get(SmsRetriever.EXTRA_STATUS);

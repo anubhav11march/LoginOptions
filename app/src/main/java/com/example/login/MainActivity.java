@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Name not found", e1.toString());
         }
         catch (NoSuchAlgorithmException e) {
-            Log.e("No such an algorithm", e.toString());
+            Log.e("No such algorithm", e.toString());
         } catch (Exception e) {
             Log.e("Exception", e.toString());
         }
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         return key;
     }
 
-    public void clickedDiff(View view){
+    public void clickedDifferentMethod(View view){
         startActivity(new Intent(MainActivity.this, Others.class));
     }
     public void clickedRegister(View view){
@@ -87,14 +89,16 @@ public class MainActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Log.d("AAA", "User Created");
                                 Toast.makeText(MainActivity.this, "User Signed Up Successfully", Toast.LENGTH_SHORT).show();
+                                inputPassword.setText("");
+                                inputEmail.setText("");
                             } else {
+                                Exception e = task.getException();
+                                Toast.makeText(MainActivity.this, e.getMessage() + " Please try again.", Toast.LENGTH_SHORT).show();
                                 Log.d("AAA", "User Creation Failed");
-                                Toast.makeText(MainActivity.this, "User Sign up Failed", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(MainActivity.this, "User Sign up Failed", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-            inputPassword.setText("");
-            inputEmail.setText("");
         }
         else {
             Log.d("AAA", "Fields empty");

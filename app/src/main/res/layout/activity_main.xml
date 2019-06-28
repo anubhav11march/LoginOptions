@@ -43,12 +43,7 @@
         android:layout_margin="5dp"
         android:id="@+id/buttonRegisterDiff"
         android:text="Register Via Different Method"
-        android:onClick="clickedDiff"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Proceed to Login"/>
+        android:onClick="clickedDifferentMethod"/>
 
 
 </LinearLayout>

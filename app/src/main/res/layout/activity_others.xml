@@ -41,7 +41,7 @@
         android:layout_gravity="right"
         android:layout_margin="5dp"
         android:text="Sign in"
-        android:onClick="esi"
+        android:onClick="emailSignIn"
         android:background="@drawable/sbutt"/>
 
     <LinearLayout
@@ -157,7 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:textSize="15dp"
-        android:onClick="tosu"
+        android:onClick="toSignUp"
         android:textColor="#FFFFFF"
         android:text="New User? Click Here"
         android:textAlignment="center"
@@ -178,7 +178,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Check current user"
-        android:onClick="cub"/>
+        android:onClick="checkCurrentUser"/>
     </LinearLayout>
 
 
